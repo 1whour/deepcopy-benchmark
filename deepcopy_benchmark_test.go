@@ -46,7 +46,15 @@ func miniCopy(dst, src interface{}) error {
 	return json.Unmarshal(bytes, dst)
 }
 
-func Benchmark_MiniCopy(b *testing.B) {
+func user_jsoniters(dst, src interface{}) error {
+	bytes, err := jsoniter.Marshal(src)
+	if err != nil {
+		return err
+	}
+	return jsoniter.Unmarshal(bytes, dst)
+}
+
+func Benchmark_Use_reflectValue_MiniCopy(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		var dst testData
@@ -54,31 +62,26 @@ func Benchmark_MiniCopy(b *testing.B) {
 	}
 }
 
-func Benchmark_DeepCopy(b *testing.B) {
+func Benchmark_Use_reflectValue_DeepCopy(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		var dst testData
 		deepcopy.Copy(&dst, &td).Do()
 	}
 }
 
-func Benchmark_jsoniter(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		var dst testData
-		user_jsoniters(&dst, &td)
-	}
-}
-
-func Benchmark_Copier(b *testing.B) {
+func Benchmark_Use_reflectValue_Copier(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		var dst testData
 		copier.Copy(&dst, &td)
 	}
 }
 
-func user_jsoniters(dst, src interface{}) error {
-	bytes, err := jsoniter.Marshal(src)
-	if err != nil {
-		return err
+func Benchmark_Use_Ptr_jsoniter(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		var dst testData
+		user_jsoniters(&dst, &td)
 	}
-	return jsoniter.Unmarshal(bytes, dst)
+}
+
+func Benchmark_Use_Ptr_coven(b *testing.B) {
 }

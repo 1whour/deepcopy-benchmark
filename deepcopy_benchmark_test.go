@@ -7,6 +7,7 @@ import (
 	"github.com/antlabs/deepcopy"
 	"github.com/jinzhu/copier"
 	jsoniter "github.com/json-iterator/go"
+	"github.com/petersunbag/coven"
 )
 
 type testData struct {
@@ -84,4 +85,9 @@ func Benchmark_Use_Ptr_jsoniter(b *testing.B) {
 }
 
 func Benchmark_Use_Ptr_coven(b *testing.B) {
+	c, _ := coven.NewConverter(testData{}, testData{})
+	for i := 0; i < b.N; i++ {
+		var dst testData
+		c.Convert(&dst, &td)
+	}
 }

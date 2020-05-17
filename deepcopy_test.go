@@ -31,3 +31,23 @@ func Test_Use_Ptr_coven(t *testing.T) {
 	dst.Slice[0] = "aaa"
 	fmt.Println("coven:", td.Slice)
 }
+
+// 看下coven是如何处理指针变量的
+// 结论coven只是拷贝指针地址
+func Test_Use_Ptr_coven_Cycle(t *testing.T) {
+	type Ring struct {
+		R *Ring
+	}
+
+	c, err := coven.NewConverter(Ring{}, Ring{})
+	assert.NoError(t, err)
+
+	R := Ring{}
+	R.R = &R
+
+	r2 := Ring{}
+
+	err = c.Convert(&r2, &R)
+	fmt.Printf("%p\n", R.R)
+	fmt.Printf("%p\n", r2.R)
+}

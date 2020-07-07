@@ -1,16 +1,8 @@
 package benchmark
 
-import (
-	"fmt"
-	"testing"
-
-	"github.com/antlabs/deepcopy"
-	"github.com/petersunbag/coven"
-	"github.com/stretchr/testify/assert"
-)
-
+/*
 func Test_Use_reflectvalue_deepcopy(t *testing.T) {
-	dst := testData{}
+	dst := testDataDst{}
 	deepcopy.Copy(&dst, &td).Do()
 	assert.Equal(t, td, dst)
 
@@ -20,10 +12,10 @@ func Test_Use_reflectvalue_deepcopy(t *testing.T) {
 
 func Test_Use_Ptr_coven(t *testing.T) {
 
-	c, err := coven.NewConverter(testData{}, testData{})
+	c, err := coven.NewConverter(testDataDst{}, testDataSrc{})
 	assert.NoError(t, err)
 
-	dst := testData{}
+	dst := testDataDst{}
 	c.Convert(&dst, &td)
 	assert.Equal(t, td, dst)
 	// coven并不是一个深度拷贝库
@@ -51,3 +43,4 @@ func Test_Use_Ptr_coven_Cycle(t *testing.T) {
 	fmt.Printf("%p\n", R.R)
 	fmt.Printf("%p\n", r2.R)
 }
+*/

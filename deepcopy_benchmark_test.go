@@ -12,31 +12,29 @@ import (
 )
 
 type testDataDst struct {
-	Int64  int64    `json:"int_64"`
-	Int32  int32    `json:"int_32"`
-	Int16  int8     `json:"int_16"`
-	Int8   int8     `json:"int_8"`
-	UInt8  int8     `json:"u_int_8"`
-	UInt64 uint64   `json:"u_int_64"`
-	UInt32 uint32   `json:"u_int_32"`
-	UInt16 uint8    `json:"u_int_16"`
-	S      string   `json:"s"`
-	Slice  []string `json:"slice"`
-	Array  []int    `json:"array"`
+	Int64  int64  `json:"int_64"`
+	Int32  int32  `json:"int_32"`
+	Int16  int8   `json:"int_16"`
+	Int8   int8   `json:"int_8"`
+	UInt8  int8   `json:"u_int_8"`
+	UInt64 uint64 `json:"u_int_64"`
+	UInt32 uint32 `json:"u_int_32"`
+	UInt16 uint8  `json:"u_int_16"`
+	S      string `json:"s"`
+	Array  [4]int `json:"array"`
 }
 
 type testDataSrc struct {
-	Int64  int64    `json:"int_64"`
-	Int32  int32    `json:"int_32"`
-	Int16  int8     `json:"int_16"`
-	Int8   int8     `json:"int_8"`
-	UInt8  int8     `json:"u_int_8"`
-	UInt64 uint64   `json:"u_int_64"`
-	UInt32 uint32   `json:"u_int_32"`
-	UInt16 uint8    `json:"u_int_16"`
-	S      string   `json:"s"`
-	Slice  []string `json:"slice"`
-	Array  []int    `json:"array"`
+	Int64  int64  `json:"int_64"`
+	Int32  int32  `json:"int_32"`
+	Int16  int8   `json:"int_16"`
+	Int8   int8   `json:"int_8"`
+	UInt8  int8   `json:"u_int_8"`
+	UInt64 uint64 `json:"u_int_64"`
+	UInt32 uint32 `json:"u_int_32"`
+	UInt16 uint8  `json:"u_int_16"`
+	S      string `json:"s"`
+	Array  [4]int `json:"array"`
 }
 
 var td = testDataSrc{
@@ -49,8 +47,7 @@ var td = testDataSrc{
 	UInt32: 132,
 	UInt16: 116,
 	S:      "test deepcopy",
-	Slice:  []string{"123", "456", "789"},
-	Array:  []int{0x33, 0x44, 0x55, 0x66, 0x77, 0x88},
+	Array:  [4]int{1, 2, 3},
 }
 
 func miniCopy(dst, src interface{}) error {
@@ -100,6 +97,7 @@ func Benchmark_Use_Ptr_jsoniter(b *testing.B) {
 }
 
 func Benchmark_Use_Ptr_fastdeepcopy(b *testing.B) {
+	fastdeepcopy.OpenCache = true
 	for i := 0; i < b.N; i++ {
 		var dst testDataDst
 		fastdeepcopy.Copy(&dst, &td).Do()
@@ -107,9 +105,9 @@ func Benchmark_Use_Ptr_fastdeepcopy(b *testing.B) {
 }
 
 func Benchmark_Use_Ptr_coven(b *testing.B) {
-	c, _ := coven.NewConverter(testDataDst{}, testDataSrc{})
 	for i := 0; i < b.N; i++ {
 		var dst testDataDst
+		c, _ := coven.NewConverter(testDataDst{}, testDataSrc{})
 		c.Convert(&dst, &td)
 	}
 }

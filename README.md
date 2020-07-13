@@ -9,7 +9,7 @@ Benchmark_Use_reflectValue_Copier-16      	  115042	     10447 ns/op
 
 ```
 ## 使用ptr库
-* https://github.com/antlabs/fastdeepcopy 性能最高，还在优化过程中
+* https://github.com/antlabs/fastdeepcopy 性能最高，还在优化过程中(暂时不建议使用)
 ```
 Benchmark_Use_Ptr_jsoniter-16             	  634638	      1687 ns/op
 Benchmark_Use_Ptr_fastdeepcopy-16         	 3096130	       405 ns/op

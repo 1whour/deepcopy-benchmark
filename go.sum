@@ -1,7 +1,7 @@
+github.com/antlabs/dcopy v0.0.0-20201016010839-dc69bf6aa968 h1:PCZ7+z4IJmyf02M97vbcgb5PfWiZZ9/aUHAerEyC0YU=
+github.com/antlabs/dcopy v0.0.0-20201016010839-dc69bf6aa968/go.mod h1:viAqT9tRf0TusMUKSzxxmyf0UqEXeATKx4IY41xLViw=
 github.com/antlabs/deepcopy v0.0.3 h1:Fu9pOcximD6PZiYZWCZx8QtX+9v8dZA5qkzIJ7PZ820=
 github.com/antlabs/deepcopy v0.0.3/go.mod h1:NKjyST7/uPcO2IPUKykZxOdnxRBSt5SJzyj/SlPXz0s=
-github.com/antlabs/fastdeepcopy v0.0.0-20200713113002-0fbac525822a h1:jPmEGe5YdHAlGix0J74s17l/Ner7/eji8PjaD8zDDtw=
-github.com/antlabs/fastdeepcopy v0.0.0-20200713113002-0fbac525822a/go.mod h1:c+/gOCytgafJPRTKGu0ujaYgL2JFYH3+oNG4rQjqSFQ=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

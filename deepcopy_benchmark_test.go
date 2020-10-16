@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"testing"
 
+	"github.com/antlabs/dcopy"
 	"github.com/antlabs/deepcopy"
-	"github.com/antlabs/fastdeepcopy"
 	"github.com/jinzhu/copier"
 	jsoniter "github.com/json-iterator/go"
 	"github.com/petersunbag/coven"
@@ -96,11 +96,11 @@ func Benchmark_Use_Ptr_jsoniter(b *testing.B) {
 	}
 }
 
-func Benchmark_Use_Ptr_fastdeepcopy(b *testing.B) {
-	fastdeepcopy.OpenCache = true
+func Benchmark_Use_Ptr_dcopy(b *testing.B) {
+	dcopy.OpenCache = true
 	for i := 0; i < b.N; i++ {
 		var dst testDataDst
-		fastdeepcopy.Copy(&dst, &td).Do()
+		dcopy.Copy(&dst, &td).Do()
 	}
 }
 

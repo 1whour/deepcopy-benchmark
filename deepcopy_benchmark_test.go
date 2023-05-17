@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/antlabs/dcopy"
 	"github.com/antlabs/deepcopy"
+	"github.com/antlabs/pcopy"
 	"github.com/jinzhu/copier"
 	jsoniter "github.com/json-iterator/go"
 	"github.com/petersunbag/coven"
@@ -22,6 +22,7 @@ type testDataDst struct {
 	UInt16 uint8  `json:"u_int_16"`
 	S      string `json:"s"`
 	Array  [4]int `json:"array"`
+	M      map[int]int
 }
 
 type testDataSrc struct {
@@ -35,6 +36,7 @@ type testDataSrc struct {
 	UInt16 uint8  `json:"u_int_16"`
 	S      string `json:"s"`
 	Array  [4]int `json:"array"`
+	M      map[int]int
 }
 
 var td = testDataSrc{
@@ -48,6 +50,7 @@ var td = testDataSrc{
 	UInt16: 116,
 	S:      "test deepcopy",
 	Array:  [4]int{1, 2, 3},
+	M:      map[int]int{1: 1, 2: 2, 3: 3, 4: 4, 5: 5},
 }
 
 func miniCopy(dst, src interface{}) error {
@@ -68,7 +71,6 @@ func user_jsoniters(dst, src interface{}) error {
 }
 
 func Benchmark_Use_reflectValue_MiniCopy(b *testing.B) {
-
 	for i := 0; i < b.N; i++ {
 		var dst testDataDst
 		miniCopy(&dst, &td)
@@ -96,18 +98,18 @@ func Benchmark_Use_Ptr_jsoniter(b *testing.B) {
 	}
 }
 
-func Benchmark_Use_Ptr_dcopy(b *testing.B) {
-	dcopy.OpenCache = true
+func Benchmark_Use_Ptr_pcopy(b *testing.B) {
+	pcopy.Preheat(&testDataDst{}, &td)
 	for i := 0; i < b.N; i++ {
 		var dst testDataDst
-		dcopy.Copy(&dst, &td).Do()
+		pcopy.Copy(&dst, &td, pcopy.WithUsePreheat())
 	}
 }
 
 func Benchmark_Use_Ptr_coven(b *testing.B) {
+	c, _ := coven.NewConverter(testDataDst{}, testDataSrc{})
 	for i := 0; i < b.N; i++ {
 		var dst testDataDst
-		c, _ := coven.NewConverter(testDataDst{}, testDataSrc{})
 		c.Convert(&dst, &td)
 	}
 }
